@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея исследований</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Play:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎮</span>
+                <span>GameImpact</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="gallery.html" class="active">Галерея</a></li>
+                    <li>
+                         <button class="theme-switcher" id="themeSwitcher" aria-label="Переключить тему">🌓</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Добавить в секцию галереи -->
+<section id="galllery" class="container">
+    <h2 class="section-title fade-in">Медиа материалы</h2>
+    
+    <div class="galllery-grid">
+        <!-- Видео -->
+        <div class="video-container fade-in">
+            <iframe src="images/dvori.mp4" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Изображения -->
+        <div class="galllery-item fade-in" onclick="openModal('images/Bucklersn.jpg')">
+            <img src="images/Bucklersn.jpg">
+        </div>
+        
+        <div class="galllery-item fade-in delay-1" onclick="openModal('images/Buckler.jpg')">
+            <img src="images/Buckler.jpg">
+        </div>
+
+        <div class="galllery-item fade-in" onclick="openModal('images/cofebreack.jpg')">
+            <img src="images/cofebreack.jpg">
+        </div>
+        
+        <div class="galllery-item fade-in delay-1" onclick="openModal('images/countryhose.jpg')">
+            <img src="images/countryhose.jpg">
+        </div>
+
+        <div class="galllery-item fade-in" onclick="openModal('images/may1st.jpg')">
+            <img src="images/may1st.jpg">
+        </div>
+        
+        <div class="galllery-item fade-in delay-1" onclick="openModal('images/fisssh.jpg')">
+            <img src="images/fisssh.jpg">
+        </div>
+
+        <div class="galllery-item fade-in" onclick="openModal('images/guitarlesson.jpg')">
+            <img src="images/guitarlesson.jpg">
+        </div>
+        
+        <div class="galllery-item fade-in delay-1" onclick="openModal('images/garden.jpg')">
+            <img src="images/garden.jpg">
+        </div>
+
+        <div class="galllery-item fade-in delay-1" onclick="openModal('images/tablegames.jpg')">
+            <img src="images/tablegames.jpg">
+        </div>
+
+
+
+    </div>
+</section>
+
+<div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modal-img">
+</div>
+
+
+    <footer>
+        
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="https://mail.yandex.ru" target="_blank">jonikey2018@yandex.ru</a></li>
+                    <li><a href="https://mail.gmail.com" target="_blank">majasmirnova173@gmail.com</a></li>
+                    <li><a href="tel:+79379118170">8 (937) 911-81-70</a></li>
+                </ul>
+            </div>
+        </div>
+    
+    </footer>
+
+    <script>
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+         // Кнопка "Наверх"
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Плавная прокрутка при клике
+        backToTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Анимация при скролле
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        };
+
+
+        // Модальное окно
+        function openModal(src) {
+            document.getElementById('modal').style.display = "block";
+            document.getElementById('modal-img').src = src;
+        }       
+
+        function closeModal() {
+            document.getElementById('modal').style.display = "none";
+        }
+
+        // Закрытие по клику вне изображения
+        window.onclick = function(event) {
+           const modal = document.getElementById('modal');
+         if (event.target == modal) {
+             modal.style.display = "none";
+            }
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        
+         // Активное состояние для навигации
+        const sections = document.querySelectorAll('section');
+
+        const navLinks = document.querySelectorAll('nav ul li a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 300) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const observer = new MutationObserver(() => {
+        document.querySelectorAll('*').forEach(el => {
+            el.style.transition = 'none';
+            el.offsetHeight; // Trigger reflow
+            el.style.transition = '';
+        });
+    });
+    observer.observe(document.documentElement, { attributes: true });
+});
+
+
+        
+const themeSwitcher = document.getElementById("themeSwitcher"); 
+const rootElement = document.documentElement;
+
+
+const savedTheme = localStorage.getItem("theme") || "light";
+rootElement.setAttribute("data-theme", savedTheme);
+
+
+themeSwitcher.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+
+themeSwitcher.addEventListener("click", () => {
+    const currentTheme = rootElement.getAttribute("data-theme");
+    console.log('Current theme:', currentTheme); 
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    rootElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+
+    themeSwitcher.textContent = newTheme === "dark" ? "☀️" : "🌙";
+});
+    </script>
+</body>
+</html>
